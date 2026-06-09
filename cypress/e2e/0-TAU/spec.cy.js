@@ -6,7 +6,8 @@ describe("Login Tests", () => {
 
   it("Login with false user", () => {
     cy.visit("/");
-    cy.contains("Swag Labs");
+    //cy.get(".login_logo").should("contain.text", "Swag Labs");
+    cy.get(".login_logo").contains("Swag Labs");
     cy.get("#user-name").type("onuryasavul");
     cy.get("#password").type("password");
     cy.get("#login-button").click();
@@ -47,7 +48,7 @@ describe("Login Tests", () => {
     cy.get("#login-button");
   });
 
-  it.only("Number of products", () => {
+  it("Number of products", () => {
     cy.visit("/");
     cy.contains("Swag Labs");
     cy.get("#user-name").type("standard_user");
