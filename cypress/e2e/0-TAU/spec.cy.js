@@ -8,3 +8,12 @@ it("Login with false user", () => {
     "Epic sadface: Username and password do not match any user in this service",
   );
 });
+
+it("Login with correct user", () => {
+  cy.visit("/");
+  cy.contains("Swag Labs");
+  cy.get("#user-name").type("standard_user");
+  cy.get("#password").type("secret_sauce");
+  cy.get("#login-button").click();
+  cy.contains("Products");
+});
