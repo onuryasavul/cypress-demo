@@ -1,7 +1,7 @@
 describe("Login Tests", () => {
-  it("Load homepage", () => {
+  it("Load homepage", { defaultCommandTimeout: 3000 }, () => {
     cy.visit("/");
-    cy.contains("Swag Labs");
+    cy.get(".login_logo", { timeout: 6000 });
   });
 
   it("Login with false user", () => {
@@ -54,7 +54,7 @@ describe("Login Tests", () => {
     cy.get("#user-name").type("standard_user");
     cy.get("#password").type("secret_sauce");
     cy.get("#login-button").click();
-    cy.contains("Products");
+    cy.contains("Products").should("be.visible");
     cy.get(".inventory_item").should("have.length", "6");
   });
 });

@@ -10,6 +10,7 @@ module.exports = defineConfig({
     baseUrl: "https://www.saucedemo.com/",
     viewportHeight: 550,
     viewportWidth: 1000,
-    experimentalStudio: true,
+    experimentalStudio: false,
+    defaultCommandTimeout: 2000,
   },
 });
