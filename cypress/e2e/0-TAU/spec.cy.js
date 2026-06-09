@@ -46,4 +46,14 @@ describe("Login Tests", () => {
     cy.get("#password");
     cy.get("#login-button");
   });
+
+  it.only("Number of products", () => {
+    cy.visit("/");
+    cy.contains("Swag Labs");
+    cy.get("#user-name").type("standard_user");
+    cy.get("#password").type("secret_sauce");
+    cy.get("#login-button").click();
+    cy.contains("Products");
+    cy.get(".inventory_item").should("have.length", "6");
+  });
 });
