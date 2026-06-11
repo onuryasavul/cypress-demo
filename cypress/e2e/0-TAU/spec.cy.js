@@ -1,4 +1,9 @@
 describe("Login Tests", () => {
+  beforeEach(function () {
+    // Load fixture and alias it as 'userData'
+    cy.fixture("users").as("userData");
+  });
+
   it("Load homepage", { defaultCommandTimeout: 3000 }, () => {
     cy.visit("/");
     cy.get(".login_logo", { timeout: 6000 }).should("be.visible");
@@ -8,9 +13,9 @@ describe("Login Tests", () => {
     cy.visit("/");
     //cy.get(".login_logo").should("contain.text", "Swag Labs")
     cy.get(".login_logo").contains("Swag Labs");
-    cy.fixture("example").then((userData) => {
-      cy.get("#user-name").type(userData.username);
-      cy.get("#password").type(userData.password);
+    cy.fixture("users").then((myUserData) => {
+      cy.get("#user-name").type(myUserData.invalid_username);
+      cy.get("#password").type(myUserData.invalid_password);
     });
     cy.get("#login-button").click();
     cy.contains(
@@ -18,11 +23,11 @@ describe("Login Tests", () => {
     );
   });
 
-  it("Login with correct user", () => {
+  it("Login with correct user", function () {
     cy.visit("/");
     cy.contains("Swag Labs");
-    cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
+    cy.get("#user-name").type(this.userData.valid_username);
+    cy.get("#password").type(this.userData.valid_password);
     //cy.get("#login-button").click()
     cy.contains("Login").click();
     cy.contains("Products");
