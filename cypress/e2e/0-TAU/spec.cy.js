@@ -1,15 +1,17 @@
 describe("Login Tests", () => {
   it("Load homepage", { defaultCommandTimeout: 3000 }, () => {
     cy.visit("/");
-    cy.get(".login_logo", { timeout: 6000 });
+    cy.get(".login_logo", { timeout: 6000 }).should("be.visible");
   });
 
   it("Login with false user", () => {
     cy.visit("/");
-    //cy.get(".login_logo").should("contain.text", "Swag Labs");
+    //cy.get(".login_logo").should("contain.text", "Swag Labs")
     cy.get(".login_logo").contains("Swag Labs");
-    cy.get("#user-name").type("onuryasavul");
-    cy.get("#password").type("password");
+    cy.fixture("example").then((userData) => {
+      cy.get("#user-name").type(userData.username);
+      cy.get("#password").type(userData.password);
+    });
     cy.get("#login-button").click();
     cy.contains(
       "Epic sadface: Username and password do not match any user in this service",
@@ -21,7 +23,7 @@ describe("Login Tests", () => {
     cy.contains("Swag Labs");
     cy.get("#user-name").type("standard_user");
     cy.get("#password").type("secret_sauce");
-    //cy.get("#login-button").click();
+    //cy.get("#login-button").click()
     cy.contains("Login").click();
     cy.contains("Products");
   });
